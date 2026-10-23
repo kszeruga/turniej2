@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Akademia Rummikub — ekran turniejowy</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="display-page">
+  <main class="display-shell">
+    <header class="display-header">
+      <h1 id="eventTitle">Akademia Rummikub</h1>
+    </header>
+    <section class="timer-region" aria-live="off">
+      <div id="timer" class="timer">--:--</div>
+      <div id="timerStatus" class="timer-status">Łączenie…</div>
+    </section>
+    <section id="messageRegion" class="message-region" hidden>
+      <p id="messageText"></p>
+    </section>
+    <footer class="display-footer">
+      <img src="./assets/footer-logos.png" alt="Logotypy organizatorów i partnerów" class="footer-graphic">
+    </footer>
+    <div id="connectionStatus" class="connection-status" role="status">Łączenie z serwerem…</div>
+  </main>
+  <script type="module" src="./display.js"></script>
+</body>
+</html>

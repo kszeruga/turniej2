@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Panel sterowania — Akademia Rummikub</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="control-page">
+  <main class="control-shell">
+    <header class="control-header">
+      <div>
+        <p class="eyebrow">AKADEMIA RUMMIKUB</p>
+        <h1>Panel sterowania</h1>
+      </div>
+      <a class="secondary-button" href="./index.html" target="_blank" rel="noopener">Otwórz ekran</a>
+    </header>
+
+    <section id="loginPanel" class="panel">
+      <h2>Logowanie operatora</h2>
+      <p class="muted">Zaloguj się kontem operatora utworzonym w Firebase Authentication.</p>
+      <form id="loginForm" class="stack">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" autocomplete="username" required>
+        <label for="password">Hasło</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+        <button type="submit" class="primary-button">Zaloguj</button>
+        <p id="loginError" class="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="controlPanel" hidden>
+      <div class="signed-in-row">
+        <span id="signedInAs" class="muted"></span>
+        <button id="logoutButton" class="secondary-button" type="button">Wyloguj</button>
+      </div>
+
+      <section class="panel">
+        <h2>Timer</h2>
+        <div class="timer-preview" id="timerPreview">--:--</div>
+        <form id="durationForm" class="duration-form">
+          <div class="field">
+            <label for="durationMinutes">Minuty</label>
+            <input id="durationMinutes" type="number" min="0" max="999" value="5" required>
+          </div>
+          <div class="field">
+            <label for="durationSeconds">Sekundy</label>
+            <input id="durationSeconds" type="number" min="0" max="59" value="0" required>
+          </div>
+          <button class="secondary-button" type="submit">Ustaw czas</button>
+        </form>
+        <div class="button-row">
+          <button id="startButton" class="primary-button" type="button">Start / wznów</button>
+          <button id="pauseButton" class="secondary-button" type="button">Pauza</button>
+          <button id="resetButton" class="danger-button" type="button">Reset</button>
+        </div>
+        <p class="muted small">Czas jest wspólny dla wszystkich ekranów. Po odświeżeniu strony odliczanie będzie kontynuowane.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Komunikat na ekranie</h2>
+        <form id="messageForm" class="stack">
+          <label for="messageInput">Treść komunikatu</label>
+          <textarea id="messageInput" rows="4" maxlength="500" placeholder="Wpisz komunikat dla uczestników…"></textarea>
+          <label class="checkbox-row"><input id="messageVisible" type="checkbox"> Pokaż komunikat</label>
+          <button class="primary-button" type="submit">Zapisz komunikat</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Widoczność elementów</h2>
+        <label class="checkbox-row"><input id="timerVisible" type="checkbox" checked> Pokaż timer</label>
+        <p class="muted small">Tytuł i grafika na dole ekranu są stałe i nie wymagają obsługi w panelu.</p>
+        <button id="saveVisibilityButton" class="secondary-button" type="button">Zapisz widoczność</button>
+      </section>
+      <p id="actionStatus" class="status-line" role="status"></p>
+    </section>
+  </main>
+  <script type="module" src="./control.js"></script>
+</body>
+</html>
