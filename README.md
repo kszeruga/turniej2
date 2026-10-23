@@ -1,4 +1,4 @@
-# Tournament display — Akademia Rummikub
+# Tournament display 
 
 Static website with:
 - a public display (`index.html`) for multiple TVs/projectors;
