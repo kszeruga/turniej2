@@ -29,6 +29,9 @@ onValue(ref(db, "tournament/state"), snapshot => {
   if (!state) {
     timerEl.textContent = "--:--";
     timerStatusEl.textContent = "Oczekiwanie na konfigurację";
+    eventTitle.textContent = defaultTitle;
+    footerEl.hidden = false;
+    if (footerLogo.getAttribute("src") !== defaultLogo) footerLogo.src = defaultLogo;
     return;
   }
   timerRegion.hidden = state.timerVisible === false;
@@ -37,9 +40,12 @@ onValue(ref(db, "tournament/state"), snapshot => {
   eventTitle.textContent = state.title && state.title.trim() ? state.title : defaultTitle;
   document.documentElement.style.setProperty("--title-scale", scaleOf(state.titleScale));
   document.documentElement.style.setProperty("--message-scale", scaleOf(state.messageScale));
-  footerEl.hidden = state.footerLogo === "";
-  const logo = typeof state.footerLogo === "string" && state.footerLogo.startsWith("data:image/") ? state.footerLogo : defaultLogo;
+
+  const hasCustomLogo = typeof state.footerLogo === "string" && state.footerLogo.startsWith("data:image/");
+  const logo = hasCustomLogo ? state.footerLogo : defaultLogo;
+  footerEl.hidden = !logo;
   if (footerLogo.getAttribute("src") !== logo) footerLogo.src = logo;
+
   renderTimer();
 }, error => {
   connectionStatus.textContent = "Błąd odczytu: " + error.message;
