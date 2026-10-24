@@ -1,4 +1,4 @@
-import { db, auth, stateRef, ref, onValue, set, update, serverTimestamp } from "./firebase-common.js";
+import { db, auth, stateRef, ref, onValue, set, update, serverTimestamp, serverNow } from "./firebase-common.js";
 import {
   signInWithEmailAndPassword, onAuthStateChanged, signOut
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
@@ -74,7 +74,7 @@ function syncFormFromState() {
 
 function remainingMs() {
   if (!state) return 0;
-  if (state.running && Number.isFinite(state.endsAt)) return Math.max(0, state.endsAt - Date.now());
+  if (state.running && Number.isFinite(state.endsAt)) return Math.max(0, state.endsAt - serverNow());
   return Math.max(0, Number(state.remainingMs) || 0);
 }
 
@@ -121,7 +121,7 @@ $("startButton").addEventListener("click", async () => {
   }
   await savePatch({
     remainingMs: remaining,
-    endsAt: Date.now() + remaining,
+    endsAt: serverNow() + remaining,
     running: true
   }, "Timer uruchomiony.");
 });
