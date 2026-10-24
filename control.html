@@ -59,10 +59,30 @@
       </section>
 
       <section class="panel">
+        <h2>Tytuł i logotypy</h2>
+        <form id="titleForm" class="stack">
+          <label for="titleInput">Tytuł wydarzenia</label>
+          <input id="titleInput" type="text" maxlength="200">
+          <label for="titleScale">Rozmiar czcionki tytułu (%)</label>
+          <input id="titleScale" type="number" min="25" max="300" step="5" value="100">
+          <button class="primary-button" type="submit">Zapisz tytuł</button>
+        </form>
+        <div class="stack">
+          <label for="logoFile">Grafika na dole ekranu (obraz)</label>
+          <input id="logoFile" type="file" accept="image/*">
+          <div class="button-row">
+            <button id="logoResetButton" class="secondary-button" type="button">Usuń</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
         <h2>Komunikat na ekranie</h2>
         <form id="messageForm" class="stack">
           <label for="messageInput">Treść komunikatu</label>
           <textarea id="messageInput" rows="4" maxlength="500" placeholder="Wpisz komunikat dla uczestników…"></textarea>
+          <label for="messageScale">Rozmiar czcionki komunikatu (%)</label>
+          <input id="messageScale" type="number" min="25" max="300" step="5" value="100">
           <label class="checkbox-row"><input id="messageVisible" type="checkbox"> Pokaż komunikat</label>
           <button class="primary-button" type="submit">Zapisz komunikat</button>
         </form>
@@ -71,7 +91,7 @@
       <section class="panel">
         <h2>Widoczność elementów</h2>
         <label class="checkbox-row"><input id="timerVisible" type="checkbox" checked> Pokaż timer</label>
-        <p class="muted small">Tytuł i grafika na dole ekranu są stałe i nie wymagają obsługi w panelu.</p>
+        <p class="muted small">Tytuł, grafikę na dole i rozmiary czcionek ustawiasz w osobnych sekcjach powyżej.</p>
         <button id="saveVisibilityButton" class="secondary-button" type="button">Zapisz widoczność</button>
       </section>
       <p id="actionStatus" class="status-line" role="status"></p>
