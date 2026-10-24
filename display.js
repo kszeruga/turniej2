@@ -7,6 +7,7 @@ const messageText = document.querySelector("#messageText");
 const connectionStatus = document.querySelector("#connectionStatus");
 const eventTitle = document.querySelector("#eventTitle");
 const footerLogo = document.querySelector("#footerLogo");
+const footerEl = document.querySelector(".display-footer");
 const defaultTitle = eventTitle.textContent;
 const defaultLogo = footerLogo.getAttribute("src");
 const timerRegion = document.querySelector(".timer-region");
@@ -36,6 +37,7 @@ onValue(ref(db, "tournament/state"), snapshot => {
   eventTitle.textContent = state.title && state.title.trim() ? state.title : defaultTitle;
   document.documentElement.style.setProperty("--title-scale", scaleOf(state.titleScale));
   document.documentElement.style.setProperty("--message-scale", scaleOf(state.messageScale));
+  footerEl.hidden = state.footerLogo === "";
   const logo = typeof state.footerLogo === "string" && state.footerLogo.startsWith("data:image/") ? state.footerLogo : defaultLogo;
   if (footerLogo.getAttribute("src") !== logo) footerLogo.src = logo;
   renderTimer();

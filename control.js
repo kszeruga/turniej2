@@ -212,7 +212,7 @@ $("logoFile").addEventListener("change", async event => {
 });
 
 $("logoResetButton").addEventListener("click", async () => {
-  await savePatch({ footerLogo: null }, "Usunięto grafikę.");
+  await savePatch({ footerLogo: "" }, "Usunięto grafikę.");
 });
 
 $("saveVisibilityButton").addEventListener("click", async () => {
