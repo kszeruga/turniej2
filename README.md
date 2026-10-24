@@ -5,7 +5,8 @@ Static website with:
 - a password-protected control panel (`control.html`);
 - Firebase Realtime Database for live synchronization;
 - Firebase Authentication (email/password) for operators;
-- the supplied partner-logo graphic at the bottom of the display.
+- the supplied partner-logo graphic at the bottom of the display (replaceable from the control panel, with a reset to the default);
+- an editable title and adjustable title/message font sizes (percent of the default size).
 
 ## 1. Create a Firebase project
 

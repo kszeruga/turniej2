@@ -21,12 +21,12 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px
 .display-page { overflow: hidden; }
 .display-shell { min-height: 100svh; height: 100svh; display: flex; flex-direction: column; padding: clamp(1rem, 3vh, 2.5rem) clamp(1rem, 4vw, 4rem) 0; gap: 1rem; }
 .display-header { text-align: center; flex: 0 0 auto; }
-.display-header h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 4rem); line-height: 1.1; font-weight: 800; letter-spacing: .015em; }
+.display-header h1 { margin: 0; font-size: calc(clamp(1.8rem, 4vw, 4rem) * var(--title-scale, 1)); line-height: 1.1; font-weight: 800; letter-spacing: .015em; }
 .timer-region { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .timer { font-size: clamp(5rem, 23vw, 36vh); font-weight: 800; line-height: .95; letter-spacing: -.055em; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .timer-status { margin-top: clamp(.5rem, 2vh, 1.25rem); color: var(--accent); font-size: clamp(.9rem, 2vw, 1.5rem); font-weight: 800; letter-spacing: .16em; }
 .message-region { flex: 0 0 auto; text-align: center; max-width: 1200px; width: 100%; margin: 0 auto; }
-.message-region p { margin: 0; font-size: clamp(1.3rem, 3vw, 2.8rem); line-height: 1.2; font-weight: 650; overflow-wrap: anywhere; }
+.message-region p { margin: 0; font-size: calc(clamp(1.3rem, 3vw, 2.8rem) * var(--message-scale, 1)); line-height: 1.2; font-weight: 650; overflow-wrap: anywhere; }
 .display-footer { flex: 0 0 auto; display: flex; justify-content: center; align-items: center; width: 100%; padding: .5rem 0 clamp(.5rem, 2vh, 1.5rem); }
 .footer-graphic { display: block; width: min(100%, 1500px); max-height: 14vh; object-fit: contain; }
 .connection-status { position: fixed; right: .5rem; bottom: .25rem; font-size: .65rem; color: #566174; opacity: .9; }

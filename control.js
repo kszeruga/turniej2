@@ -68,6 +68,9 @@ function syncFormFromState() {
   $("durationMinutes").value = Math.floor(duration / 60);
   $("durationSeconds").value = Math.floor(duration % 60);
   $("messageInput").value = state.message || "";
+  $("titleInput").value = state.title || "";
+  $("titleScale").value = state.titleScale || 100;
+  $("messageScale").value = state.messageScale || 100;
   $("messageVisible").checked = !!state.messageVisible;
   $("timerVisible").checked = state.timerVisible !== false;
 }
@@ -149,8 +152,67 @@ $("messageForm").addEventListener("submit", async event => {
   event.preventDefault();
   await savePatch({
     message: $("messageInput").value,
+    messageScale: readScale("messageScale"),
     messageVisible: $("messageVisible").checked
   }, "Zapisano komunikat.");
+});
+
+function readScale(id) {
+  const value = Math.round(Number($(id).value));
+  return Number.isFinite(value) ? Math.min(300, Math.max(25, value)) : 100;
+}
+
+$("titleForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  await savePatch({
+    title: $("titleInput").value.trim(),
+    titleScale: readScale("titleScale")
+  }, "Zapisano tytuł.");
+});
+
+const MAX_LOGO_FILE_BYTES = 10 * 1024 * 1024;
+const MAX_LOGO_WIDTH = 1500;
+
+function loadImage(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("Nie można odczytać obrazu.")); };
+    img.src = url;
+  });
+}
+
+$("logoFile").addEventListener("change", async event => {
+  const input = event.target;
+  const file = input.files[0];
+  if (!file) return;
+  if (!file.type.startsWith("image/")) {
+    say("Wybrany plik nie jest obrazem.", true);
+    input.value = "";
+    return;
+  }
+  if (file.size > MAX_LOGO_FILE_BYTES) {
+    say("Obraz jest za duży (maks. 10 MB).", true);
+    input.value = "";
+    return;
+  }
+  try {
+    const img = await loadImage(file);
+    const ratio = Math.min(1, MAX_LOGO_WIDTH / img.naturalWidth);
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.round(img.naturalWidth * ratio));
+    canvas.height = Math.max(1, Math.round(img.naturalHeight * ratio));
+    canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+    await savePatch({ footerLogo: canvas.toDataURL("image/png") }, "Zapisano grafikę na dole ekranu.");
+  } catch (error) {
+    say(error.message, true);
+  }
+  input.value = "";
+});
+
+$("logoResetButton").addEventListener("click", async () => {
+  await savePatch({ footerLogo: null }, "Przywrócono domyślną grafikę.");
 });
 
 $("saveVisibilityButton").addEventListener("click", async () => {

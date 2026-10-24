@@ -5,6 +5,10 @@ const timerStatusEl = document.querySelector("#timerStatus");
 const messageRegion = document.querySelector("#messageRegion");
 const messageText = document.querySelector("#messageText");
 const connectionStatus = document.querySelector("#connectionStatus");
+const eventTitle = document.querySelector("#eventTitle");
+const footerLogo = document.querySelector("#footerLogo");
+const defaultTitle = eventTitle.textContent;
+const defaultLogo = footerLogo.getAttribute("src");
 const timerRegion = document.querySelector(".timer-region");
 
 let state = null;
@@ -29,11 +33,21 @@ onValue(ref(db, "tournament/state"), snapshot => {
   timerRegion.hidden = state.timerVisible === false;
   messageRegion.hidden = !(state.messageVisible && state.message && state.message.trim());
   messageText.textContent = state.message || "";
+  eventTitle.textContent = state.title && state.title.trim() ? state.title : defaultTitle;
+  document.documentElement.style.setProperty("--title-scale", scaleOf(state.titleScale));
+  document.documentElement.style.setProperty("--message-scale", scaleOf(state.messageScale));
+  const logo = typeof state.footerLogo === "string" && state.footerLogo.startsWith("data:image/") ? state.footerLogo : defaultLogo;
+  if (footerLogo.getAttribute("src") !== logo) footerLogo.src = logo;
   renderTimer();
 }, error => {
   connectionStatus.textContent = "Błąd odczytu: " + error.message;
   connectionStatus.classList.add("offline");
 });
+
+function scaleOf(value) {
+  const percent = Number(value);
+  return Number.isFinite(percent) ? Math.min(300, Math.max(25, percent)) / 100 : 1;
+}
 
 function getRemainingMs() {
   if (!state) return 0;
