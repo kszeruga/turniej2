@@ -60,7 +60,7 @@ The timer stores a shared end timestamp while running. All displays calculate th
 
 - The title is currently fixed to “Akademia Rummikub” in `index.html`.
 - The footer graphic is `assets/footer-logos.png`, copied from the supplied image.
-- The timer uses each browser's clock. For the best synchronization, devices should have automatic time/date enabled.
+- The timer uses the Firebase server-time offset (`.info/serverTimeOffset`), so displays stay in sync even if device clocks differ.
 - Firebase web config is not a password; security comes from Authentication and database rules.
 - Firebase and GitHub Pages have free tiers, but usage limits and product pricing may change.
 - Before a live event, test login, write permissions, refresh/reconnect, pause/resume, and all target display resolutions.

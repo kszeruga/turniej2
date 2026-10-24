@@ -1,4 +1,4 @@
-import { db, ref, onValue } from "./firebase-common.js";
+import { db, ref, onValue, serverNow } from "./firebase-common.js";
 
 const timerEl = document.querySelector("#timer");
 const timerStatusEl = document.querySelector("#timerStatus");
@@ -54,7 +54,7 @@ function scaleOf(value) {
 function getRemainingMs() {
   if (!state) return 0;
   if (state.running && Number.isFinite(state.endsAt)) {
-    return Math.max(0, state.endsAt - Date.now());
+    return Math.max(0, state.endsAt - serverNow());
   }
   return Math.max(0, Number(state.remainingMs) || 0);
 }
