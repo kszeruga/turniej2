@@ -69,10 +69,13 @@
         </form>
         <div class="stack">
           <label for="logoFile">Grafika na dole ekranu (obraz)</label>
-          <input id="logoFile" type="file" accept="image/*">
+          <input id="logoFile" type="file" accept="image/*" hidden>
           <div class="button-row">
+            <button id="logoPickButton" class="secondary-button" type="button">Wybierz plik…</button>
             <button id="logoResetButton" class="secondary-button" type="button">Usuń</button>
           </div>
+          <p id="logoInfo" class="muted small">Aktualnie: grafika domyślna</p>
+          <img id="logoPreview" alt="Podgląd aktualnej grafiki" style="max-width:100%;max-height:120px;object-fit:contain" hidden>
         </div>
       </section>
 
