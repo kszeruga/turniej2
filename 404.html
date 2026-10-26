@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Zegar Turniejowy</title><script>
+(function () {
+  var p = location.pathname;
+  var base = "/turniej2/zegar/";
+  if (p.indexOf(base) === 0) {
+    var rest = p.slice(base.length).replace(/\/+$/, "");
+    if (/^timer_[a-z0-9]+$/i.test(rest)) {
+      document.write('<link rel="stylesheet" href="' + base + 'styles.css">');
+      document.write('<main class="shell"><p>Ładowanie zegara…</p></main>');
+      window.addEventListener("DOMContentLoaded", function () {
+        import(base + "app.js").catch(function () { location.replace(base + "index.html"); });
+      });
+      window.__ZEGAR_TIMER_ID__ = rest;
+      return;
+    }
+  }
+  location.replace(base + "index.html");
+})();
+</script></head><body><noscript>Ta strona wymaga JavaScript.</noscript></body></html>
